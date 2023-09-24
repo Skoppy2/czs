@@ -1,0 +1,8 @@
+{
+  "name": "Nsfw Updated",
+  "description": "Custom Made nsfw",
+  "manifestVersion": 1,
+  "pluginLists": [
+    "https://github.com/Skoppy2/czs/blob/builds/plugins.json"
+  ]
+}
