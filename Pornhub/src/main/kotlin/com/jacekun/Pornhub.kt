@@ -33,7 +33,7 @@ class Pornhub : MainAPI() {
                 if (it == null) { return@mapNotNull null }
                 val title = it.selectFirst("span.title a")?.text() ?: ""
                 val link = fixUrlNull(it.selectFirst("a")?.attr("href")) ?: return@mapNotNull null
-                val img = fetchImgUrl(it.selectFirst("img")?.attr("src")) ?:
+                val img = fetchImgUrl(it.selectFirst("img"))
                 MovieSearchResponse(
                     name = title,
                     url = link,
@@ -131,12 +131,12 @@ class Pornhub : MainAPI() {
     }
 
     private fun fetchImgUrl(imgsrc: Element?): String? {
-        return try { imgsrc?.attr("data-src")
+        return try { imgsrc?.attr("src")
             ?: imgsrc?.attr("data-mediabook")
             ?: imgsrc?.attr("alt")
             ?: imgsrc?.attr("data-mediumthumb")
             ?: imgsrc?.attr("data-thumb_url")
-            ?: imgsrc?.attr("src")
-        } catch (e:Exception) { null }
+            ?: imgsrc?.attr("data-src")
+        } catch (e:Exception) {  }
     }
 }
