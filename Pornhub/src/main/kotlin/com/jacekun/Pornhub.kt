@@ -33,7 +33,7 @@ class Pornhub : MainAPI() {
                 if (it == null) { return@mapNotNull null }
                 val title = it.selectFirst("span.title a")?.text() ?: ""
                 val link = fixUrlNull(it.selectFirst("a")?.attr("href")) ?: return@mapNotNull null
-                val img = fetchImgUrl(it.selectFirst("img")?.attr("src"))
+                val img = fetchImgUrl(it.selectFirst("img").attr("src"))
                 MovieSearchResponse(
                     name = title,
                     url = link,
