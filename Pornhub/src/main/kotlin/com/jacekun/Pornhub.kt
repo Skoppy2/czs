@@ -137,6 +137,6 @@ class Pornhub : MainAPI() {
             ?: imgsrc?.attr("data-mediumthumb")
             ?: imgsrc?.attr("data-thumb_url")
             ?: imgsrc?.attr("data-src")
-        } catch (e:Exception) {  }
+        } catch (e:Exception) { null }
     }
 }
