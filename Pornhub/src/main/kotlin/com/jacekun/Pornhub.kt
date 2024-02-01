@@ -128,11 +128,8 @@ class Pornhub : MainAPI() {
             }
         }
         
-    val duration = Toast.LENGTH_SHORT
 
-    val toast = Toast.makeText(this, url, duration) // in Activity
-    toast.show()
-
+        throw ErrorLoadingException(url)
         return true
     }
 
