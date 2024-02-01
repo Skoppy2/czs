@@ -106,7 +106,7 @@ class Pornhub : MainAPI() {
         app.get(
             url = data,
             interceptor = WebViewResolver(
-                Regex("(master\\.m3u8\\?.*)")
+                Regex("(mp4.urlset/master\\.m3u8\\?.*)").replace("\","")
             )
         ).let { response ->
             M3u8Helper().m3u8Generation(
