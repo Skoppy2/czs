@@ -116,7 +116,7 @@ override suspend fun loadLinks(
             ), true
         ).apmap { stream ->
             // Replace backslashes with empty string in the stream URL
-            val cleanedStreamUrl = stream.streamUrl.replace("\\", "")
+            val cleanedStreamUrl = stream.streamUrl.replace("\", "")
             
             callback(
                 ExtractorLink(
