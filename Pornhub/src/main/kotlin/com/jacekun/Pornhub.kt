@@ -119,7 +119,7 @@ class Pornhub : MainAPI() {
                     ExtractorLink(
                         source = name,
                         name = "${this.name} m3u8",
-                        url = stream.url,
+                        url = stream.streamUrl,
                         referer = mainUrl,
                         quality = getQualityFromName(stream.quality?.toString()),
                         isM3u8 = true
@@ -127,6 +127,12 @@ class Pornhub : MainAPI() {
                 )
             }
         }
+        
+    val duration = Toast.LENGTH_SHORT
+
+    val toast = Toast.makeText(this, url, duration) // in Activity
+    toast.show()
+
         return true
     }
 
