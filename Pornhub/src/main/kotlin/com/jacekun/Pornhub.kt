@@ -119,7 +119,7 @@ class Pornhub : MainAPI() {
                     ExtractorLink(
                         source = name,
                         name = "${this.name} m3u8",
-                        url = stream.streamUrl,
+                        url = stream.url,
                         referer = mainUrl,
                         quality = getQualityFromName(stream.quality?.toString()),
                         isM3u8 = true
