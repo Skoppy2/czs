@@ -129,7 +129,7 @@ class Pornhub : MainAPI() {
         }
         
 
-        throw ErrorLoadingException(url)
+        
         return true
     }
 
