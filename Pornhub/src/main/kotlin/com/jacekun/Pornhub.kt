@@ -97,41 +97,42 @@ class Pornhub : MainAPI() {
             plot = title
         )
     }
-    override suspend fun loadLinks(
-        data: String,
-        isCasting: Boolean,
-        subtitleCallback: (SubtitleFile) -> Unit,
-        callback: (ExtractorLink) -> Unit
-    ): Boolean {
-        app.get(
-            url = data,
-            interceptor = WebViewResolver(
-                Regex("(mp4.urlset/master\\.m3u8\\?.*)").replace("\","")
-            )
-        ).let { response ->
-            M3u8Helper().m3u8Generation(
-                M3u8Helper.M3u8Stream(
-                    response.url,
-                    headers = response.headers.toMap()
-                ), true
-            ).apmap { stream ->
-                callback(
-                    ExtractorLink(
-                        source = name,
-                        name = "${this.name} m3u8",
-                        url = stream.streamUrl,
-                        referer = mainUrl,
-                        quality = getQualityFromName(stream.quality?.toString()),
-                        isM3u8 = true
-                    )
+override suspend fun loadLinks(
+    data: String,
+    isCasting: Boolean,
+    subtitleCallback: (SubtitleFile) -> Unit,
+    callback: (ExtractorLink) -> Unit
+): Boolean {
+    app.get(
+        url = data,
+        interceptor = WebViewResolver(
+            Regex("(mp4\\.urlset/master\\.m3u8\\?.*)")
+        )
+    ).let { response ->
+        M3u8Helper().m3u8Generation(
+            M3u8Helper.M3u8Stream(
+                response.url,
+                headers = response.headers.toMap()
+            ), true
+        ).apmap { stream ->
+            // Replace backslashes with empty string in the stream URL
+            val cleanedStreamUrl = stream.streamUrl.replace("\\", "")
+            
+            callback(
+                ExtractorLink(
+                    source = name,
+                    name = "${this.name} m3u8",
+                    url = cleanedStreamUrl,
+                    referer = mainUrl,
+                    quality = getQualityFromName(stream.quality?.toString()),
+                    isM3u8 = true
                 )
-            }
+            )
         }
-        
-
-        
-        return true
     }
+    return true
+}
+
 
     private fun fetchImgUrl(imgsrc: Element?): String? {
         return try { imgsrc?.attr("src")
